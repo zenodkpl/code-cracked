@@ -272,7 +272,7 @@
             wrongAnswers.forEach(answer => {
                 let li = document.createElement("li");
                 li.className = "wrong";
-                li.innerHTML = `Question ${answer.questionNumber}: Your Answer: ${answer.selected}`;
+                li.innerHTML = `Question ${answer.questionNumber}: Correct Answer: ${answer.selected}`;
                 wrongList.appendChild(li);
             });
         }
