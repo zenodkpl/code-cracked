@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body {
+            font-family: "Space Mono", monospace;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            flex-direction: column; /* Arrange content in a column layout */
+    min-height: 100vh; /* Ensure body takes up full viewport height */
+    margin: 0;
+        }
+
+        header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1em 2em;
+        background-color: transparent;
+        color: black;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .logo {
+        font: "VT323", monospace;
+        font-size: 50px;
+
+      }
+      
+      .header-buttons {
+            display: flex;
+            gap: 15px;
+            position: absolute;
+            top: 20px;
+            right: 100px;
+        }
+      /* Navigation Buttons */
+nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-btn {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  font-size: 1.5em;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 50px;
+  transition: 0.3s;
+  position: relative;
+}
+
+/* Hover Effect to Show Titles */
+.nav-btn:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+        .calendar-container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            margin-top: 200px;
+            margin-bottom: 100px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .month-header button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            justify-items: center;
+        }
+
+        .day {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border-radius: 5px;
+            background: #eee;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .day:hover {
+            background: #ddd;
+        }
+
+        .event-dot {
+            width: 6px;
+            height: 6px;
+            background: pink;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        .event-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 50px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .event-popup input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .event-popup button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9;
+        }
+
+        .clear-btn {
+            font: "Space Mono", monospace;
+            margin-top: 20px;
+            background: black;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    background: white;
+    border-top: 2px solid black;
+}
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: black;
+            text-decoration: none;
+            margin: 0 12px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">CodeCracked</div>
+        <div class="header-buttons">
+          <nav>
+              <a href="home.html" class="nav-btn" title="Back">
+                <i class="fa-solid fa-arrow-left"></i>
+              </a>
+              <a href="notes.html" class="nav-btn" title="Notes">
+                <i class="fa-solid fa-note-sticky"></i>
+              </a>
+              <a href="calendar.html" class="nav-btn" title="Calendar">
+                <i class="fa-solid fa-calendar"></i>
+              </a>
+            </nav>
+        </div>
+      </header>
+
+<div class="calendar-container">
+    <div class="month-header">
+        <button onclick="prevMonth()"><i class="fa-solid fa-chevron-left"></i></button>
+        <h2 id="monthYear"></h2>
+        <button onclick="nextMonth()"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="calendar"></div>
+
+    <button class="clear-btn" onclick="clearEvents()">Clear All Events</button>
+</div>
+<footer class="footer">
+    <p>© 2025 CodeCracked. All Rights Reserved.</p>
+    <div class="footer-links">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="rules.html">Rules & Regulations</a>
+    </div>
+</footer>
+
+<!-- Event Popup -->
+<div class="overlay"></div>
+<div class="event-popup">
+    <h3 id="popupDate"></h3>
+    <input type="text" id="eventText" placeholder="Enter event">
+    <button onclick="saveEvent()">Save</button>
+    <button onclick="closePopup()">Cancel</button>
+</div>
+
+<script>
+    let currentDate = new Date();
+    let events = JSON.parse(localStorage.getItem("events")) || {};
+
+    function renderCalendar() {
+        const calendar = document.querySelector(".calendar");
+        calendar.innerHTML = "";
+
+        const monthYear = document.getElementById("monthYear");
+        monthYear.textContent = currentDate.toLocaleString("default", { month: "long", year: "numeric" });
+
+        let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+        let daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+            let emptyDiv = document.createElement("div");
+            calendar.appendChild(emptyDiv);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            let dayDiv = document.createElement("div");
+            dayDiv.classList.add("day");
+            dayDiv.textContent = day;
+
+            let dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+            if (events[dateKey]) {
+                let eventDot = document.createElement("div");
+                eventDot.classList.add("event-dot");
+                dayDiv.appendChild(eventDot);
+            }
+
+            dayDiv.onclick = () => openPopup(dateKey);
+            calendar.appendChild(dayDiv);
+        }
+    }
+
+    function prevMonth() {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    }
+
+    function nextMonth() {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    }
+
+    function openPopup(dateKey) {
+        document.querySelector(".overlay").style.display = "block";
+        document.querySelector(".event-popup").style.display = "block";
+
+        document.getElementById("popupDate").textContent = `Event for ${dateKey}`;
+        document.getElementById("eventText").value = events[dateKey] || "";
+        document.getElementById("eventText").dataset.dateKey = dateKey;
+    }
+
+    function closePopup() {
+        document.querySelector(".overlay").style.display = "none";
+        document.querySelector(".event-popup").style.display = "none";
+    }
+
+    function saveEvent() {
+        let dateKey = document.getElementById("eventText").dataset.dateKey;
+        let eventText = document.getElementById("eventText").value.trim();
+
+        if (eventText) {
+            events[dateKey] = eventText;
+        } else {
+            delete events[dateKey];
+        }
+
+        localStorage.setItem("events", JSON.stringify(events));
+        closePopup();
+        renderCalendar();
+    }
+
+    function clearEvents() {
+        localStorage.removeItem("events");
+        events = {};
+        renderCalendar();
+    }
+
+    renderCalendar();
+</script>
+
+</body>
+</html>

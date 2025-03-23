@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debugging</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body {
+            font-family: "Space Mono", monospace;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            background-color: transparent;
+            color: black;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .logo {
+            font: "VT323", monospace;
+            font-size: 50px;
+        }
+      
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+            position: absolute;
+            top: 20px;
+            right: 100px;
+        }
+
+        /* Navigation Buttons */
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            font-size: 1.5em;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 50px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        /* Hover Effect to Show Titles */
+        .nav-btn:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .debug-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin-top: 200px;
+            margin-bottom: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            text-align: center;
+            border: 2px solid black;
+            flex-grow: 1;
+        }
+
+        .code-box {
+            background: #333;
+            color: #0f0;
+            padding: 10px;
+            text-align: left;
+            font-family: monospace;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .options button:hover {
+            background: #0056b3;
+        }
+
+        .restart {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .correct { background: #28a745 !important; }
+        .wrong { background: #dc3545 !important; }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            background: white;
+            border-top: 2px solid black;
+            
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: black;
+            text-decoration: none;
+            margin: 0 12px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CodeCracked</div>
+        <div class="header-buttons">
+            <nav>
+                <a href="home.html" class="nav-btn" title="Back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <a href="./option-lesson.html" class="nav-btn" title="Lessons">
+                    <i class="fas fa-book"></i>
+                </a>
+                <a href="./flashcard.html" class="nav-btn" title="Flashcard">
+                    <i class="fa-solid fa-square-minus"></i>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="debug-card" id="debugGame">
+        <h2>Find the Bug!</h2>
+        <pre class="code-box" id="codeSnippet"></pre>
+        <div class="options" id="options"></div>
+        <p>Score: <span id="debugScore">0</span></p>
+        <button class="restart" id="home" onclick="location.href='index.html'">HOME</button>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 CodeCracked. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="rules.html">Rules & Regulations</a>
+        </div>
+    </footer>
+
+    <script>
+        let debugQuestions = [
+            { code: "let x = 10;\nif(x = 5) {\n    console.log('X is 5');\n}",
+            options: [
+                "Replace '=' with '==' in if condition",
+                "Change let to var",
+                "Add a semicolon after console.log",
+                "Remove the if statement"
+            ],
+            correct: 0
+            },
+            { code: "for(i = 0; i < 5; i++) {\n    console.log(i);\n}",
+            options: [
+                "Add 'let' before i",
+                "Change < to <=",
+                "Remove semicolon",
+                "Add brackets"
+            ],
+            correct: 0
+            },
+            { code: "function subtract(a, b) {\n    return a + b;\n}",
+            options: [
+                "Change + to -",
+                "Add semicolon",
+                "Rename function",
+                "Add more parameters"
+            ],
+            correct: 0
+            },
+            { code: "const arr = [1,2,3];\narr.length = 0;",
+            options: [
+                "Use arr = [] instead",
+                "Add semicolon",
+                "Change const to let",
+                "Remove brackets"
+            ],
+            correct: 2
+            },
+            { code: "let result = Math.floor(3.8);\nconsole.log(result);",
+            options: [
+                "Use Math.ceil()",
+                "Use Math.round()",
+                "Remove Math",
+                "Change to parseInt"
+            ],
+            correct: 1
+            },
+            { code: "let str = 'Hello';\nconsole.log(str.length());",
+            options: [
+                "Remove parentheses after length",
+                "Add quotes around length",
+                "Change to size()",
+                "Add semicolon"
+            ],
+            correct: 0
+            },
+            { code: "function sum(a,b) {\n    retur a + b;\n}",
+            options: [
+                "Fix 'retur' to 'return'",
+                "Add semicolon",
+                "Add space after comma",
+                "Remove function"
+            ],
+            correct: 0
+            },
+            { code: "let nums = [1,2,3];\nconsole.log(nums[3]);",
+            options: [
+                "Change index to 2",
+                "Add more numbers",
+                "Remove brackets",
+                "Change to nums.3"
+            ],
+            correct: 0
+            },
+            { code: "let obj = {name: 'John'};\nconsole.log(obj[name]);",
+            options: [
+                "Add quotes around name",
+                "Remove brackets",
+                "Change to dot notation",
+                "Add semicolon"
+            ],
+            correct: 0
+            },
+            { code: "setTimeout(function() {\n    console.log('Hi')\n}, -1000);",
+            options: [
+                "Change to positive timeout",
+                "Remove function",
+                "Add more parameters",
+                "Change to setInterval"
+            ],
+            correct: 0
+            }
+        ];
+
+        let debugScore = 0;
+        let currentDebugIndex = 0;
+
+        function shuffle(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        function loadDebugQuestion() {
+            if (currentDebugIndex >= debugQuestions.length) {
+                document.getElementById("codeSnippet").innerText = "Game Over! Your Score: " + debugScore;
+                document.getElementById("options").innerHTML = "";
+                document.getElementById("home").style.display = "block";
+                return;
+            }
+            let q = debugQuestions[currentDebugIndex];
+            document.getElementById("codeSnippet").innerText = q.code;
+            let optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            let shuffledOptions = shuffle([...q.options]);
+            shuffledOptions.forEach(opt => {
+                let btn = document.createElement("button");
+                btn.innerText = opt;
+                let isCorrect = (opt === q.options[q.correct]);
+                btn.onclick = function() { checkDebugAnswer(btn, isCorrect); };
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkDebugAnswer(button, isCorrect) {
+            button.classList.add(isCorrect ? "correct" : "wrong");
+            if (isCorrect) debugScore++;
+            document.getElementById("debugScore").innerText = debugScore;
+            setTimeout(() => {
+                currentDebugIndex++;
+                loadDebugQuestion();
+            }, 1000);
+        }
+
+        loadDebugQuestion();
+    </script>
+</body>
+</html>  

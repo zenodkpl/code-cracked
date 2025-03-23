@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML LESSON</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Space Mono", monospace;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+            header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1em 2em;
+        background-color: transparent;
+        color: black;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .logo {
+        font: "VT323", monospace;
+        font-size: 50px;
+
+      }
+      
+      .header-buttons {
+            display: flex;
+            gap: 15px;
+            position: absolute;
+            top: 20px;
+            right: 100px;
+        }
+      /* Navigation Buttons */
+nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-btn {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  font-size: 1.5em;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 50px;
+  transition: 0.3s;
+  position: relative;
+}
+
+/* Hover Effect to Show Titles */
+.nav-btn:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+        .container {
+            margin: 20px auto;
+            padding: 30px;
+            margin-top: 100px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px; /* Limits width for better readability */
+            text-align: left;
+            border: 2px solid black;
+        }
+        ul, ol {
+            margin-left: 5cm; /* Moves list items to the right */
+            text-align: left;
+        }
+        ul li, ol li {
+            margin-bottom: 10px; /* Adds spacing between items */
+        }
+        pre {
+            background: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px; /* Increased font size */
+            overflow-x: auto; /* Allows horizontal scrolling */
+        }
+        /* Footer */
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            background: white;
+            border-top: 2px solid black;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: black;
+            text-decoration: none;
+            margin: 0 12px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-2px);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">CodeCracked</div>
+        <div class="header-buttons">
+          <nav>
+              <a href="home.html" class="nav-btn" title="Back">
+                <i class="fa-solid fa-arrow-left"></i>
+              </a>
+              <a href="./flashcard.html" class="nav-btn" title="Flashcard">
+                <i class="fa-solid fa-square-minus"></i>
+              </a>
+              <a href="./debugging.html" class="nav-btn" title="Debugging">
+                <i class="fa-solid fa-desktop"></i>
+              </a>
+            </nav>
+        </div>
+      </header>
+
+    <div class="container">
+        <h2>Welcome</h2>
+        <p>Welcome to this beginner-friendly HTML course! By the end of these lessons, you’ll be able to create and structure web pages using HTML.</p>
+
+        <h3>Lesson 1: Introduction to HTML</h3>
+        <p>What is HTML?</p>
+        <p>HTML (HyperText Markup Language) is the standard language used to create web pages. It provides structure to content using tags (also called elements).</p>
+        <p>Basic HTML Structure:</p>
+        <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My First Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Welcome to HTML&lt;/h1&gt;
+        &lt;p&gt;This is my first web page.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+        </pre>
+        <p>Explanation:</p>
+        <ul>
+            <li>&lt;!DOCTYPE html&gt; – Declares the document as HTML5.</li>
+            <li>&lt;html&gt; – The root element of the page.</li>
+            <li>&lt;head&gt; – Contains metadata, like the page title and links to stylesheets.</li>
+            <li>&lt;title&gt; – Sets the webpage title (displayed on the browser tab).</li>
+            <li>&lt;body&gt; – Holds all visible content on the page.</li>
+        </ul>
+
+        <h3>Lesson 2: HTML Document Structure</h3>
+        <p>Key Sections of an HTML Document:</p>
+        <ol>
+            <li>The &lt;head&gt; Section</li>
+            <p>Contains metadata (data about the document, not visible on the page). Includes &lt;title&gt;, &lt;meta&gt;, &lt;link&gt; (for stylesheets), and &lt;script&gt; (for JavaScript).</p>
+            <li>The &lt;body&gt; Section</li>
+            <p>Holds everything visible on the page, such as text, images, and buttons.</p>
+        </ol>
+
+        <h3>Lesson 3: Text Formatting & Headings</h3>
+        <p>Headings define titles and subtitles. There are six heading levels:</p>
+        <pre>
+&lt;h1&gt;Main Heading&lt;/h1&gt;
+&lt;h2&gt;Subheading&lt;/h2&gt;
+&lt;h3&gt;Smaller Heading&lt;/h3&gt;
+        </pre>
+        <ul>
+            <li>&lt;h1&gt; is the most important heading.</li>
+            <li>&lt;h6&gt; is the smallest heading.</li>
+        </ul>
+
+        <h3>Lesson 4: Links & Navigation</h3>
+        <p>Creating Links:</p>
+        <pre>
+&lt;a href="https://www.google.com"&gt;Visit Google&lt;/a&gt;
+        </pre>
+        <p>href – Defines the destination URL.</p>
+
+        <h3>Lesson 5: Images & Multimedia</h3>
+        <p>Adding Images:</p>
+        <pre>
+&lt;img src="image.jpg" alt="A beautiful scenery"&gt;
+        </pre>
+        <ul>
+            <li>src – Specifies the file location.</li>
+            <li>alt – Provides alternative text for screen readers.</li>
+        </ul>
+
+        <h3>Lesson 6: Lists & Tables</h3>
+        <p>Ordered & Unordered Lists:</p>
+        <p>Unordered List (Bullets)</p>
+        <pre>
+&lt;ul&gt;
+    &lt;li&gt;Apple&lt;/li&gt;
+    &lt;li&gt;Banana&lt;/li&gt;
+    &lt;li&gt;Cherry&lt;/li&gt;
+&lt;/ul&gt;
+        </pre>
+        <p>Ordered List (Numbers)</p>
+        <pre>
+&lt;ol&gt;
+    &lt;li&gt;First&lt;/li&gt;
+    &lt;li&gt;Second&lt;/li&gt;
+    &lt;li&gt;Third&lt;/li&gt;
+&lt;/ol&gt;
+        </pre>
+
+        <h3>Lesson 7: Forms & Input Elements</h3>
+        <p>Basic Form Example:</p>
+        <pre>
+&lt;form&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name"&gt;
+    &lt;br&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+        </pre>
+
+        <h3>Lesson 8: Semantic HTML</h3>
+        <p>Semantic elements help structure a webpage in a meaningful way.</p>
+        <pre>
+&lt;header&gt;Website Header&lt;/header&gt;
+&lt;nav&gt;Navigation Menu&lt;/nav&gt;
+&lt;section&gt;Main Content&lt;/section&gt;
+&lt;article&gt;Blog Post&lt;/article&gt;
+&lt;footer&gt;Footer Information&lt;/footer&gt;
+        </pre>
+
+        <h3>Lesson 9: HTML5 Features</h3>
+        <p>Canvas for Graphics:</p>
+        <pre>
+&lt;canvas id="myCanvas"&gt;&lt;/canvas&gt;
+        </pre>
+
+        <h3>Lesson 10: HTML & CSS Integration</h3>
+        <p>Linking an External CSS File:</p>
+        <pre>
+&lt;head&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+        </pre>
+    </div>
+    <!-- Footer at the Bottom -->
+    <footer class="footer">
+        <p>© 2025 CodeCracked. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="rules.html">Rules & Regulations</a>
+        </div>
+    </footer>
+</body>
+</html>
