@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flashcards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Give body some top padding so the header doesn’t overlap. */
+    body {
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.5) 1px, transparent 1px);
+      background-size: 50px 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Added padding-top so content is not hidden behind fixed header */
+      padding-top: 80px; 
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+    }
+
+    /* Fix .logo to properly use font-family rather than “font:” */
+    .logo {
+      font-family: 'VT323', monospace; /* Only if you have this font installed or imported */
+      font-size: 50px;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 15px;
+      position: absolute;
+      top: 20px;
+      right: 100px;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-btn {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      font-size: 1.5em;
+      text-decoration: none;
+      padding: 8px;
+      border-radius: 50px;
+      transition: 0.3s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+    }
+
+    .nav-btn:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      font-size: 0.8em;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background-color: black;
+      color: white;
+    }
+
+    /* You can reduce this margin-top if you like, since we added padding-top to body */
+    h3 {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Remove fixed height so card can size to content */
+    .container {
+      position: relative;
+      width: 500px; /* keep the width if you like */
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Let .flashcard expand with content; position: relative for flipping faces */
+    .flashcard {
+      position: relative;
+      width: 100%;
+      min-height: 250px; /* or remove altogether if you want it fully dynamic */
+      background: lightblue;
+      border-radius: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 20px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+      margin-bottom: 1em; /* some breathing room for the nav arrows below */
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Absolutely position front/back so they stack perfectly. */
+    .front,
+    .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      top: 0;
+      left: 0;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background: orange;
+    }
+
+    .topic {
+      font-size: 25px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 15px; /* slightly smaller gap */
+      width: 100%;
+      text-align: center;
+    }
+
+    .content {
+      width: 100%;
+    }
+
+    .nav-container {
+      position: absolute;
+      bottom: -60px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .triangle-btn {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      cursor: pointer;
+      background: transparent;
+      border-color: transparent;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .show-nav .triangle-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .left-triangle {
+      border-width: 30px 40px 30px 0;
+      border-color: transparent lightblue transparent transparent;
+    }
+
+    .right-triangle {
+      border-width: 30px 0 30px 40px;
+      border-color: transparent transparent transparent orange;
+    }
+
+    /* Footer */
+    .footer {
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      font-size: 16px;
+      margin-top: auto;
+      font-weight: bold;
+      background: white;
+      border-top: 2px solid black;
+    }
+
+    .footer-links {
+      margin-top: 10px;
+    }
+
+    .footer-links a {
+      color: black;
+      text-decoration: none;
+      margin: 0 12px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .footer-links a:hover {
+      transform: translateY(-2px);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+    <header>
+      <div class="logo">CodeCracked</div>
+      <div class="header-buttons">
+        <nav>
+          <a href="home.html" class="nav-btn" title="Back">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+          <a href="lesson.html" class="nav-btn" title="Lesson">
+            <i class="fas fa-book"></i>
+          </a>
+          <a href="debugging.html" class="nav-btn" title="Debugging">
+            <i class="fa-solid fa-desktop"></i>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <h3>CLICK THE CENTER TO FLIP THE CARD! ARROW TO CHANGE QUESTION!</h3>
+
+    <div class="container">
+      <div class="flashcard" id="card">
+        <div class="front" id="question"></div>
+        <div class="back" id="answer"></div>
+      </div>
+
+      <div class="nav-container">
+        <div class="triangle-btn left-triangle" id="backBtn"></div>
+        <div class="triangle-btn right-triangle" id="nextBtn"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© 2025 CodeCracked. All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="rules.html">Rules & Regulations</a>
+      </div>
+    </footer>
+
+    <script>
+      const flashcards = [
+      { topic: "HTML Elements", question: "What is an HTML element?", answer: "An HTML element is a building block of a webpage defined by a start tag, content, and an end tag." },
+      { topic: "HTML Elements", question: "What is the purpose of &lt;div&gt;?", answer: "The &lt;div&gt; element is a container used to group and style other elements" },
+      { topic: "HTML Elements", question: "What is &lt;span&gt;?", answer: "An inline container used to mark up part of a text or document" },
+      { topic: "HTML Elements", question: "What is &lt;p&gt;?", answer: "Defines a paragraph of text" },
+      { topic: "HTML Elements", question: "What is &lt;a&gt;?", answer: "Creates a hyperlink to other web pages or resources" },
+
+      { topic: "HTML Attributes", question: "What is an HTML attribute?", answer: "Special words used inside tags to control the element's behavior" },
+      { topic: "HTML Attributes", question: "What is the 'class' attribute?", answer: "Specifies one or more class names for an element" },
+      { topic: "HTML Attributes", question: "What is the 'id' attribute?", answer: "Specifies a unique id for an element" },
+      { topic: "HTML Attributes", question: "What is the 'src' attribute?", answer: "Specifies the URL of the media file to display" },
+      { topic: "HTML Attributes", question: "What is the 'href' attribute?", answer: "Specifies the URL of the page the link goes to" },
+
+      { topic: "HTML Semantics", question: "What is semantic HTML?", answer: "HTML elements that carry meaning about their content structure" },
+      { topic: "HTML Semantics", question: "What is &lt;header&gt;?", answer: "Represents introductory content or navigation links" },
+      { topic: "HTML Semantics", question: "What is &lt;nav&gt;?", answer: "Defines a set of navigation links" },
+      { topic: "HTML Semantics", question: "What is &lt;article&gt;?", answer: "Represents a self-contained composition" },
+      { topic: "HTML Semantics", question: "What is &lt;footer&gt;?", answer: "Represents footer information for its section" },
+
+      { topic: "HTML Style Guide", question: "Why use lowercase elements?", answer: "For consistency and readability in code" },
+      { topic: "HTML Style Guide", question: "Why quote attribute values?", answer: "To ensure consistency and avoid errors with spaces" },
+      { topic: "HTML Style Guide", question: "Why avoid spaces around equals signs?", answer: "For better code readability and consistency" },
+      { topic: "HTML Style Guide", question: "Why indent nested elements?", answer: "To show hierarchy and improve readability" },
+      { topic: "HTML Style Guide", question: "Why use alt attributes?", answer: "For accessibility and SEO purposes" },
+
+      // CSS Topics
+      { topic: "CSS Positions", question: "What is position: relative?", answer: "Positions element relative to its normal position" },
+      { topic: "CSS Positions", question: "What is position: absolute?", answer: "Positions element relative to nearest positioned ancestor" },
+      { topic: "CSS Positions", question: "What is position: fixed?", answer: "Positions element relative to browser window" },
+      { topic: "CSS Positions", question: "What is position: sticky?", answer: "Toggles between relative and fixed based on scroll position" },
+      { topic: "CSS Positions", question: "What is position: static?", answer: "Default positioning, follows normal document flow" },
+
+      { topic: "CSS Simple Selectors", question: "What is a class selector?", answer: "Selects elements with specific class using .classname" },
+      { topic: "CSS Simple Selectors", question: "What is an ID selector?", answer: "Selects element with specific ID using #idname" },
+      { topic: "CSS Simple Selectors", question: "What is a type selector?", answer: "Selects all elements of specific type, like p or div" },
+      { topic: "CSS Simple Selectors", question: "What is the universal selector?", answer: "Selects all elements using *" },
+      { topic: "CSS Simple Selectors", question: "What are grouping selectors?", answer: "Selects multiple elements using commas" },
+
+      { topic: "CSS Attribute Selectors", question: "What is [attribute] selector?", answer: "Selects elements with specified attribute" },
+      { topic: "CSS Attribute Selectors", question: "What is [attribute=value]?", answer: "Selects elements with exact attribute value" },
+      { topic: "CSS Attribute Selectors", question: "What is [attribute^=value]?", answer: "Selects elements whose attribute begins with value" },
+      { topic: "CSS Attribute Selectors", question: "What is [attribute$=value]?", answer: "Selects elements whose attribute ends with value" },
+      { topic: "CSS Attribute Selectors", question: "What is [attribute*=value]?", answer: "Selects elements whose attribute contains value" },
+
+      { topic: "CSS Combinators", question: "What is descendant combinator (space)?", answer: "Matches elements that are descendants of first element" },
+      { topic: "CSS Combinators", question: "What is child combinator (>)?", answer: "Matches elements that are direct children of first element" },
+      { topic: "CSS Combinators", question: "What is adjacent sibling (+)?", answer: "Matches element directly after first element" },
+      { topic: "CSS Combinators", question: "What is general sibling (~)?", answer: "Matches elements that follow first element" },
+      { topic: "CSS Combinators", question: "Why use combinators?", answer: "To create more specific and efficient selectors" }
+      ];
+
+      let currentIndex = 0;
+      const card = document.getElementById("card");
+      const questionEl = document.getElementById("question");
+      const answerEl = document.getElementById("answer");
+
+      function updateFlashcard(index) {
+        // Wait for transition to complete before updating content
+        setTimeout(() => {
+          const flashcard = flashcards[index];
+          questionEl.innerHTML = `
+            <div class="topic">${flashcard.topic}</div>
+            <div class="content">${flashcard.question}</div>
+          `;
+          answerEl.innerHTML = `
+            <div class="topic">${flashcard.topic}</div>
+            <div class="content">${flashcard.answer}</div>
+          `;
+        }, 250); // half the flip animation time
+      }
+
+      updateFlashcard(currentIndex);
+
+      let isFlipping = false;
+      card.addEventListener("click", () => {
+        if (isFlipping) return;
+        isFlipping = true;
+
+        card.classList.toggle("flipped");
+        document.querySelector('.nav-container').classList.toggle('show-nav');
+
+        setTimeout(() => {
+          isFlipping = false;
+        }, 500); // matches CSS transition
+      });
+
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        if (isFlipping) return;
+        currentIndex = (currentIndex + 1) % flashcards.length;
+        updateFlashcard(currentIndex);
+        card.classList.remove("flipped");
+        document.querySelector('.nav-container').classList.remove('show-nav');
+      });
+
+      document.getElementById("backBtn").addEventListener("click", () => {
+        if (isFlipping) return;
+        currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+        updateFlashcard(currentIndex);
+        card.classList.remove("flipped");
+        document.querySelector('.nav-container').classList.remove('show-nav');
+      });
+    </script>
+</body>
+</html>
