@@ -20,8 +20,9 @@
       <div class="nav-buttons">
           <div class="menu-btn"><i class="fas fa-bars" id="menu-btn"></i></div>
           <div class="palette-btn"><i class="fas fa-palette" id="palette-btn"></i></div>
-          <button class="my-button" onclick="window.location.href='profile.html'"><i class="fa-solid fa-address-card"></i></button>  
-          <button class="my-button" onclick="window.location.href='./feedback.html'"><i class="fa-solid fa-message"></i></button>     
+          <button class="my-button" style="background-color: white;" onclick="window.location.href='profile.html'"><i class="fa-solid fa-address-card"></i></button>  
+          <button class="my-button" style="background-color: white;" onclick="window.location.href='./feedback.html'"><i class="fa-solid fa-message"></i></button>  
+          <button class="my-button" style="background-color: white;" onclick="window.location.href='signin.html'"><i class="fa-solid fa-right-from-bracket"></i></button>   
       </div>
 
       <div class="dropdown" id="menuDropdown">
@@ -87,21 +88,21 @@
     <div class="cards">
       <div class="card" id="html-card">
         <div class="card-front">
-          <h2 id="text">HTML</h2>
-          <h3 id="text1"><em>The Backbone of Web Structure</em></h3>
+          <h2>HTML</h2>
+          <h3><em>The Backbone of Web Structure</em></h3>
         </div>
         <div class="card-back">
-          <p id="text2">Structures the content of a webpage, allowing students to organize text, images, and links. It's the backbone of any website.</p>
+          <p>Structures the content of a webpage, allowing students to organize text, images, and links. It's the backbone of any website.</p>
         </div>
       </div>
   
       <div class="card" id="css-card">
         <div class="card-front">
-          <h2 id="text3">CSS</h2>
-          <h3 id="text4"><em>Crafting Webpage Design</em></h3>
+          <h2>CSS</h2>
+          <h3><em>Crafting Webpage Design</em></h3>
         </div>
         <div class="card-back">
-          <p id="text5">CSS styles and designs the website, controlling layout, colors, fonts, and responsiveness. It ensures websites are visually appealing and functional across different devices.</p>
+          <p>CSS styles and designs the website, controlling layout, colors, fonts, and responsiveness. It ensures websites are visually appealing and functional across different devices.</p>
         </div>
       </div>
     </div>
@@ -197,7 +198,7 @@
                     <li>Review difficult flashcards.</li>
                     <li>Repeat regularly to reinforce learning.</li>
                 </ul>
-                <button class="game-btn">Flip Cards</button>
+                <button class="game-btn" onclick="window.location.href='flashcard.html';">Flip Cards</button>
             </div>
         </div>
 
@@ -214,7 +215,7 @@
                     <li>Answer multiple-choice questions.</li>
                     <li>Review feedback to improve.</li>
                 </ul>
-                <button class="game-btn">Start Quiz</button>
+                <button class="game-btn" onclick="window.location.href='quiz.html';">Start Quiz</button>
             </div>
         </div>
 
@@ -230,7 +231,7 @@
                     <li>Work for 25 minutes, then take a 5-minute break.</li>
                     <li>After 4 sessions, take a 15-30 minute break.</li>
                 </ul>
-                <button class="game-btn">Start Timer</button>
+                <button class="game-btn" onclick="window.location.href='pomodoro.html';">Start Timer</button>
             </div>
         </div>
 
@@ -243,70 +244,70 @@
 
         <div class="faq-item">
             <button class="faq-question">Where do the lessons come from?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq1">
                 <p>Our lessons are curated from reliable sources such as W3Schools, MDN Web Docs, and other well-established web development resources. We ensure the content is up-to-date and follows best practices in HTML and CSS.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">How do flashcards help with learning?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq2">
                 <p>Flashcards use active recall, which strengthens memory by encouraging users to test themselves on key concepts. Our interactive flashcards make learning engaging and help reinforce important HTML and CSS topics.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">What can I expect from the quizzes?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq3">
                 <p>Our quizzes are designed to test your understanding of HTML and CSS concepts through multiple-choice questions, coding challenges, and scenario-based problems. They provide instant feedback to help you learn effectively.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">How does the Pomodoro technique improve focus?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq4">
                 <p>The Pomodoro technique helps learners stay focused by breaking study sessions into 25-minute intervals with short breaks in between. This method boosts concentration and prevents burnout while learning HTML and CSS.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">Is this website suitable for beginners?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq5">
                 <p>Absolutely! Our platform is beginner-friendly and designed to guide users step by step through HTML and CSS fundamentals, making it easy to learn at your own pace.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">Do I need any prior coding knowledge?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq6">
                 <p>No prior coding knowledge is required. Our lessons start from the basics and gradually introduce more advanced topics, ensuring a smooth learning experience for everyone.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">Can I track my learning progress?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq7">
                 <p>Yes! Our platform allows you to track your progress through completed lessons, quizzes, and flashcards. You can also use the Pomodoro timer to measure your focused study sessions.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">Is the platform free to use?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq8">
                 <p>Yes! Our lessons, flashcards, quizzes, and Pomodoro tool are completely free to use. We believe in making HTML and CSS learning accessible to everyone.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">Do I need to install any software?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq9">
                 <p>No installation is required. Our platform runs directly in your web browser, making it easy to access interactive learning tools anytime, anywhere.</p>
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question">How can I get additional help if I have questions?</button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq10">
                 <p>If you have any questions, you can reach out through our community forum, email support, or explore our additional resources section. We’re here to help you succeed in learning HTML and CSS!</p>
             </div>
         </div>
