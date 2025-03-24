@@ -203,93 +203,95 @@
 
     <script>
         let debugQuestions = [
-            { code: "let x = 10;\nif(x = 5) {\n    console.log('X is 5');\n}",
+            // HTML Questions
+            { code: "<div class='container'>\n  <h1>Title</h2>\n</div>",
             options: [
-                "Replace '=' with '==' in if condition",
-                "Change let to var",
-                "Add a semicolon after console.log",
-                "Remove the if statement"
+                "Change closing h2 tag to h1",
+                "Remove the class",
+                "Add more content",
+                "Add quotes to class"
             ],
             correct: 0
             },
-            { code: "for(i = 0; i < 5; i++) {\n    console.log(i);\n}",
+            { code: "<img src='image.jpg'>",
             options: [
-                "Add 'let' before i",
-                "Change < to <=",
-                "Remove semicolon",
-                "Add brackets"
+                "Add alt attribute",
+                "Change src to href",
+                "Add closing tag",
+                "Remove quotes"
             ],
             correct: 0
             },
-            { code: "function subtract(a, b) {\n    return a + b;\n}",
+            { code: "<a ref='https://example.com'>Link</a>",
             options: [
-                "Change + to -",
+                "Change ref to href",
+                "Add target attribute",
+                "Remove quotes",
+                "Add class"
+            ],
+            correct: 0
+            },
+            { code: "<ul>\n  <p>Item 1</p>\n  <p>Item 2</p>\n</ul>",
+            options: [
+                "Change p tags to li tags",
+                "Add more items",
+                "Remove ul tags",
+                "Add class"
+            ],
+            correct: 0
+            },
+            { code: "<table>\n  <tr>\n    <td>Data</td>\n  </tr>",
+            options: [
+                "Add closing table tag",
+                "Change td to th",
+                "Remove tr tags",
+                "Add more cells"
+            ],
+            correct: 0
+            },
+            // CSS Questions
+            { code: ".container {\n  margin: 50px:\n}",
+            options: [
+                "Change colon to semicolon",
+                "Add more properties",
+                "Remove margin",
+                "Add px unit"
+            ],
+            correct: 0
+            },
+            { code: "#header {\n  display: blocked;\n}",
+            options: [
+                "Change blocked to block",
+                "Remove display",
                 "Add semicolon",
-                "Rename function",
-                "Add more parameters"
+                "Change # to ."
             ],
             correct: 0
             },
-            { code: "const arr = [1,2,3];\narr.length = 0;",
+            { code: ".box {\n  paddig: 20px;\n}",
             options: [
-                "Use arr = [] instead",
-                "Add semicolon",
-                "Change const to let",
-                "Remove brackets"
-            ],
-            correct: 2
-            },
-            { code: "let result = Math.floor(3.8);\nconsole.log(result);",
-            options: [
-                "Use Math.ceil()",
-                "Use Math.round()",
-                "Remove Math",
-                "Change to parseInt"
-            ],
-            correct: 1
-            },
-            { code: "let str = 'Hello';\nconsole.log(str.length());",
-            options: [
-                "Remove parentheses after length",
-                "Add quotes around length",
-                "Change to size()",
-                "Add semicolon"
+                "Fix padding spelling",
+                "Add more padding",
+                "Remove px",
+                "Change to margin"
             ],
             correct: 0
             },
-            { code: "function sum(a,b) {\n    retur a + b;\n}",
+            { code: "@media screen and (max-width 768px) {}",
             options: [
-                "Fix 'retur' to 'return'",
-                "Add semicolon",
-                "Add space after comma",
-                "Remove function"
+                "Add colon after max-width",
+                "Remove media",
+                "Change px to em",
+                "Add properties"
             ],
             correct: 0
             },
-            { code: "let nums = [1,2,3];\nconsole.log(nums[3]);",
+            { code: ".text {\n  color: red:\n  font-size: 16px;\n}",
             options: [
-                "Change index to 2",
-                "Add more numbers",
-                "Remove brackets",
-                "Change to nums.3"
-            ],
-            correct: 0
-            },
-            { code: "let obj = {name: 'John'};\nconsole.log(obj[name]);",
-            options: [
-                "Add quotes around name",
-                "Remove brackets",
-                "Change to dot notation",
-                "Add semicolon"
-            ],
-            correct: 0
-            },
-            { code: "setTimeout(function() {\n    console.log('Hi')\n}, -1000);",
-            options: [
-                "Change to positive timeout",
-                "Remove function",
-                "Add more parameters",
-                "Change to setInterval"
+                "Change colon to semicolon after red",
+                "Remove font-size",
+                "Add more properties",
+                "Change color value"
             ],
             correct: 0
             }
