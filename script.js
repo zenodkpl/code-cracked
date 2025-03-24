@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.getElementById("logo").style.color = "white";
                 document.getElementById("h1").style.color = "white";
+                document.getElementById("cursor").style.color = "white";
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "white");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "white");
             } 
@@ -97,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.getElementById("logo").style.color = "white";
                 document.getElementById("type-text").style.color = "white";
+                document.getElementById("cursor").style.color = "white";
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "white");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "white");
             } 
@@ -107,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.getElementById("logo").style.color = "black";
                 document.getElementById("type-text").style.color = "black";
+                document.getElementById("cursor").style.color = "black";
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "black");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "black");
             }
