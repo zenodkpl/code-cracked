@@ -89,6 +89,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("logo").style.color = "white";
                 document.getElementById("h1").style.color = "white";
                 document.getElementById("cursor").style.color = "white";
+                document.getElementById("palette-btn").style.color = "black";
+                document.getElementById("menu-btn").style.color = "black";
+                document.getElementById("nav-item").style.color = "black";
+                document.getElementById("nav-item1").style.color = "black";
+                document.getElementById("nav-item2").style.color = "black";
+                document.getElementById("nav-item3").style.color = "black";
+                document.getElementById("nav-item4").style.color = "black";
+                document.getElementById("nav-item5").style.color = "black";
+                document.getElementById("nav-item6").style.color = "black";
+                document.getElementById("nav-item7").style.color = "black";
+                document.getElementById("nav-item8").style.color = "black";
+
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "white");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "white");
             } 
@@ -99,6 +111,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("logo").style.color = "white";
                 document.getElementById("type-text").style.color = "white";
                 document.getElementById("cursor").style.color = "white";
+                document.getElementById("palette-btn").style.color = "black";
+                document.getElementById("menu-btn").style.color = "black";
+                document.getElementById("nav-item").style.color = "black";
+                document.getElementById("nav-item1").style.color = "black";
+                document.getElementById("nav-item2").style.color = "black";
+                document.getElementById("nav-item3").style.color = "black";
+                document.getElementById("nav-item4").style.color = "black";
+                document.getElementById("nav-item5").style.color = "black";
+                document.getElementById("nav-item6").style.color = "black";
+                document.getElementById("nav-item7").style.color = "black";
+                document.getElementById("nav-item8").style.color = "black";
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "white");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "white");
             } 
@@ -110,6 +133,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("logo").style.color = "black";
                 document.getElementById("type-text").style.color = "black";
                 document.getElementById("cursor").style.color = "black";
+                document.getElementById("palette-btn").style.color = "black";
+                document.getElementById("menu-btn").style.color = "black";
+                document.getElementById("nav-item").style.color = "black";
+                document.getElementById("nav-item1").style.color = "black";
+                document.getElementById("nav-item2").style.color = "black";
+                document.getElementById("nav-item3").style.color = "black";
+                document.getElementById("nav-item4").style.color = "black";
+                document.getElementById("nav-item5").style.color = "black";
+                document.getElementById("nav-item6").style.color = "black";
+                document.getElementById("nav-item7").style.color = "black";
+                document.getElementById("nav-item8").style.color = "black";
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "black");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "black");
             }
