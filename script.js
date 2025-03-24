@@ -81,20 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
     colorOptions.forEach(option => {
         option.addEventListener("click", function () {
             const selectedColor = option.getAttribute("data-color");
-
+    
             if (selectedColor === "dim") {
                 body.className = "dim-mode";
                 gridlines.style.background = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 50 50\"><rect width=\"50\" height=\"50\" fill=\"none\" stroke=\"white\" stroke-width=\"1\" /></svg>') repeat";
-
+    
                 document.getElementById("logo").style.color = "white";
                 document.getElementById("h1").style.color = "white";
                 document.getElementById("cursor").style.color = "white";
-                document.getElementById("text").style.color = "black";
-                document.getElementById("text1").style.color = "black";
-                document.getElementById("text2").style.color = "black";
-                document.getElementById("text3").style.color = "black";
-                document.getElementById("text4").style.color = "black";
-                document.getElementById("text5").style.color = "black";
                 document.getElementById("palette-btn").style.color = "black";
                 document.getElementById("menu-btn").style.color = "black";
                 document.getElementById("nav-item").style.color = "black";
@@ -106,23 +100,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("nav-item6").style.color = "black";
                 document.getElementById("nav-item7").style.color = "black";
                 document.getElementById("nav-item8").style.color = "black";
-
-                document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "white");
-                document.querySelectorAll(".card-back p").forEach(el => el.style.color = "white");
-            } 
-            else if (selectedColor === "dark") {
+    
+                document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "black");
+                document.querySelectorAll(".card-back p").forEach(el => el.style.color = "black");
+                // Set card-front text color to black:
+                document.querySelectorAll(".card-front h2, .card-front h3, .card-front p").forEach(el => el.style.color = "black");
+    
+            } else if (selectedColor === "dark") {
                 body.className = "dark-mode";
                 gridlines.style.background = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 50 50\"><rect width=\"50\" height=\"50\" fill=\"none\" stroke=\"white\" stroke-width=\"1\" /></svg>') repeat";
-
+    
                 document.getElementById("logo").style.color = "white";
                 document.getElementById("type-text").style.color = "white";
                 document.getElementById("cursor").style.color = "white";
-                document.getElementById("text").style.color = "black";
-                document.getElementById("text1").style.color = "black";
-                document.getElementById("text2").style.color = "black";
-                document.getElementById("text3").style.color = "black";
-                document.getElementById("text4").style.color = "black";
-                document.getElementById("text5").style.color = "black";
                 document.getElementById("palette-btn").style.color = "black";
                 document.getElementById("menu-btn").style.color = "black";
                 document.getElementById("nav-item").style.color = "black";
@@ -134,24 +124,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("nav-item6").style.color = "black";
                 document.getElementById("nav-item7").style.color = "black";
                 document.getElementById("nav-item8").style.color = "black";
-                document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "white");
-                document.querySelectorAll(".card-back p").forEach(el => el.style.color = "white");
-            } 
-            else {
+    
+                document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "black");
+                document.querySelectorAll(".card-back p").forEach(el => el.style.color = "black");
+                // Set card-front text color to black:
+                document.querySelectorAll(".card-front h2, .card-front h3, .card-front p").forEach(el => el.style.color = "black");
+    
+            } else {
                 body.className = "";
                 gridlines.style.background = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 50 50\"><rect width=\"50\" height=\"50\" fill=\"none\" stroke=\"black\" stroke-width=\"1\" /></svg>') repeat";
                 body.style.background = selectedColor;
-
+    
                 document.getElementById("logo").style.color = "black";
                 document.getElementById("type-text").style.color = "black";
                 document.getElementById("cursor").style.color = "black";
                 document.getElementById("palette-btn").style.color = "black";
-                document.getElementById("text").style.color = "black";
-                document.getElementById("text1").style.color = "black";
-                document.getElementById("text2").style.color = "black";
-                document.getElementById("text3").style.color = "black";
-                document.getElementById("text4").style.color = "black";
-                document.getElementById("text5").style.color = "black";
                 document.getElementById("menu-btn").style.color = "black";
                 document.getElementById("nav-item").style.color = "black";
                 document.getElementById("nav-item1").style.color = "black";
@@ -162,9 +149,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("nav-item6").style.color = "black";
                 document.getElementById("nav-item7").style.color = "black";
                 document.getElementById("nav-item8").style.color = "black";
+    
                 document.querySelectorAll(".faq-answer").forEach(el => el.style.color = "black");
                 document.querySelectorAll(".card-back p").forEach(el => el.style.color = "black");
+                // Set card-front text color to black for the custom color as well:
+                document.querySelectorAll(".card-front h2, .card-front h3, .card-front p").forEach(el => el.style.color = "black");
             }
         });
     });
-});
+    
+        });
